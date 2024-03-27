@@ -11,6 +11,7 @@ use tracing::{error, info, warn};
 /// // 初始化
 /// let local_writer = WriteLocal::init();
 ///
+/// // 追加写入到文件
 /// let dest_file = PathBuf::from_str("/tmp/a.log").unwrap();
 /// let data = "helloworld".as_bytes().to_vec();
 /// local_writer.write(dest_file, WriteData::Append(data));
