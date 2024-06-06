@@ -16,6 +16,7 @@ use tracing::{error, info, warn};
 /// let data = "helloworld".as_bytes().to_vec();
 /// local_writer.write(dest_file, WriteData::Append(data));
 /// ```
+#[derive(Clone)]
 pub struct WriteLocal {
     tx: Sender<(PathBuf, WriteData)>,
 }
@@ -91,7 +92,7 @@ fn write_to_local(rx: Receiver<(PathBuf, WriteData)>) {
         };
 
         // 稍稍小睡一会会，等待更多数据的到来
-        std::thread::sleep(std::time::Duration::from_millis(5));
+        std::thread::sleep(std::time::Duration::from_millis(100));
 
         tmp.extend(rx.drain()); // flume的Receiver::drain()是不阻塞的，总是立即返回
 
